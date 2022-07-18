@@ -1,4 +1,4 @@
-# FVTT-SelectiveShow
- Adds the ability to selectively choose who to show journal entries to.
+# FVTT-SelectiveShowExtended
+ Adds the ability to selectively choose who to show journal entries and also images to
 
- Manifest: `https://raw.githubusercontent.com/moo-man/FVTT-SelectiveShow/master/module.json`
+ Manifest: `https://raw.githubusercontent.com/Filcat01/FVTT-SelectiveShowExtended/master/module.json`

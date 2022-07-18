@@ -1,9 +1,9 @@
 {
-  "name": "selectiveshow",
-  "title": "Selective Show",
-  "description": "Show Journals to a select number of players.",
-  "version": "2.1",
-  "author": "Moo Man",
+  "name": "selectiveshowextended",
+  "title": "Selective Show Extended",
+  "description": "Show Journals and Images to a select number of players.",
+  "version": "2.2",
+  "author": "Filcat01",
   "scripts": [
     "./selectiveshow.js"
   ],
@@ -26,7 +26,7 @@
   "socket" : true, 
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
-  "url": "https://github.com/moo-man/FVTT-SelectiveShow",
-  "download": "https://github.com/moo-man/FVTT-SelectiveShow/releases/download/2.1/selectiveshow.zip",
-  "manifest": "https://raw.githubusercontent.com/moo-man/FVTT-SelectiveShow/master/module.json"
+  "url": "https://github.com/Filcat01/FVTT-SelectiveShowExtended",
+  "download": "https://github.com/Filcat01/FVTT-SelectiveShowExtended/releases/download/2.2/selectiveshowextended.zip",
+  "manifest": "https://raw.githubusercontent.com/Filcat01/FVTT-SelectiveShowExtended/master/module.json"
 }

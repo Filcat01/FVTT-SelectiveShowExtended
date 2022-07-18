@@ -1,26 +1,39 @@
 Hooks.on("ready", () => {
-    JournalEntry.prototype.show = async function (mode = "text", force = false) 
-    {
+    JournalEntry.prototype.show = async function (mode = "text", force = false) {
         if (!this.isOwner) throw new Error(game.i18n.localize("selectiveshow.MustBeAnOwnerError"));
         let selection = await new Promise(resolve => {
             new SelectiveShowApp(resolve).render(true);
         })
 
-        game.socket.emit("module.selectiveshow", {id : this.uuid, mode, force, selection})
+        game.socket.emit("module.selectiveshow", { id: this.uuid, mode, force, selection, type: "journal" });
     }
 
-    game.socket.on("module.selectiveshow", ({id, mode, force, selection}) => {
-        if (selection.includes(game.user.id))
-            Journal._showEntry(id, mode, force)
+
+    ImagePopout.prototype.shareImage = async function (mode = "text", force = false) {
+        let selection = await new Promise(resolve => {
+            new SelectiveShowApp(resolve).render(true);
+        })
+
+        game.socket.emit("module.selectiveshow", { uuid: this.uuid, image: this.object, title: this.options.title, selection, type: "image" })
+    }
+
+    game.socket.on("module.selectiveshow", ({ id, mode, force, uuid, image, title, selection, type }) => {
+        if (selection.includes(game.user.id)) {
+            if (type === "journal") {
+                Journal._showEntry(id, mode, force)
+            }
+            else if (type === "image") {
+                ImagePopout._handleShareImage({ image, title, uuid })
+            }
+        }
     })
-    
+
 })
 
 
 class SelectiveShowApp extends Application {
 
-    constructor (resolve)
-    {
+    constructor(resolve) {
         super();
         this.selection = resolve
     }
@@ -44,16 +57,16 @@ class SelectiveShowApp extends Application {
         return data;
     }
 
-     activateListeners(html) {
-         super.activateListeners(html);    
+    activateListeners(html) {
+        super.activateListeners(html);
 
-         html.find(".show").click(ev => {
-             ev.preventDefault();
-             let selector = $(ev.currentTarget).parents("form").find("select");
-             this.selection(selector.val());
-             this.close();
-         })
-         html.find(".show-all").click(ev => {
+        html.find(".show").click(ev => {
+            ev.preventDefault();
+            let selector = $(ev.currentTarget).parents("form").find("select");
+            this.selection(selector.val());
+            this.close();
+        })
+        html.find(".show-all").click(ev => {
             ev.preventDefault();
             this.selection(game.users.filter(u => u.active && u.data.id != game.user.id).map(u => u.id));
             this.close();

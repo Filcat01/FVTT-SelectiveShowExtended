@@ -41,7 +41,7 @@ class SelectiveShowApp extends Application {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = "selective-show";
-        options.template = "modules/selectiveshow/selectiveshow.html"
+        options.template = "modules/selectiveshowextended/selectiveshow.html"
         options.classes.push("selective-show");
         options.height = 300;
         options.width = 250;

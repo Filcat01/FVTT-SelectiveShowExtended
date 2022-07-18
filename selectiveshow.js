@@ -5,7 +5,7 @@ Hooks.on("ready", () => {
             new SelectiveShowApp(resolve).render(true);
         })
 
-        game.socket.emit("module.selectiveshow", { id: this.uuid, mode, force, selection, type: "journal" });
+        game.socket.emit("module.selectiveshowextended", { id: this.uuid, mode, force, selection, type: "journal" });
     }
 
 
@@ -14,10 +14,10 @@ Hooks.on("ready", () => {
             new SelectiveShowApp(resolve).render(true);
         })
 
-        game.socket.emit("module.selectiveshow", { uuid: this.uuid, image: this.object, title: this.options.title, selection, type: "image" })
+        game.socket.emit("module.selectiveshowextended", { uuid: this.uuid, image: this.object, title: this.options.title, selection, type: "image" })
     }
 
-    game.socket.on("module.selectiveshow", ({ id, mode, force, uuid, image, title, selection, type }) => {
+    game.socket.on("module.selectiveshowextended", ({ id, mode, force, uuid, image, title, selection, type }) => {
         if (selection.includes(game.user.id)) {
             if (type === "journal") {
                 Journal._showEntry(id, mode, force)
